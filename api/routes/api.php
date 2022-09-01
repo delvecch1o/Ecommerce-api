@@ -19,6 +19,17 @@ Route::post('/user', [CadastrarController::class, 'register']);
 Route::post('login', [CadastrarController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
+    Route::get('/checkingAuthenticated', function () {
+        return response()->json(['message' => 'You are in', 'status' => 200], 200);
+    });
+
+    Route::post('logout', [CadastrarController::class, 'logout']);
+
+});
+
+
+/*
+Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('logout', [CadastrarController::class, 'logout']);
 
 });
@@ -26,3 +37,5 @@ Route::middleware(['auth:sanctum'])->group(function (){
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+*/
