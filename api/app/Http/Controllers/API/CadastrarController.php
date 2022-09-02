@@ -61,12 +61,26 @@ class CadastrarController extends Controller
                     'message'=>'Credenciais Invalidas',
                 ]);
             } else{
-                $token = $user->createToken($user->email.'_Token')->plainTextToken;
+
+                if($user->role_as == 1 ) // 1 = Admin
+                { 
+                    $role = 'admin';
+                    $token = $user->createToken($user->email.'_AdminToken' , ['server:admin'])->plainTextToken;
+
+                } else{
+                    
+                    $role = '';
+                    $token = $user->createToken($user->email.'_Token', [''])->plainTextToken;
+
+                }
+
+                
                 return response()->json([
                     'status'=>200,
                     'username'=>$user->name,
                     'token'=>$token,
                     'message'=>'Login com Sucesso',
+                    'role'=>$role,
                 ]);
             }
 
