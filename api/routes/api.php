@@ -3,9 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CadastrarController;
-use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\FrontendController;
+use App\Http\Controllers\API\CheckoutController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +27,14 @@ Route::post('login', [CadastrarController::class, 'login']);
 Route::get('getCategory', [FrontendController::class, 'category']);
 Route::get('fetchproducts/{slug}', [FrontendController::class, 'product']);
 Route::get('viewproductdetail/{category_slug}/{product_slug}', [FrontendController::class, 'viewproduct']);
+
+Route::post('add-to-cart', [CartController::class, 'addtocart']);
+Route::get('cart', [CartController::class, 'viewcart']);
+Route::put('cart-updatequantity/{cart_id}/{scope}', [CartController::class, 'updatequantity']);
+Route::delete('delete-cartitem/{cart_id}', [CartController::class, 'deleteCartitem']);
+
+Route::post('place-order', [CheckoutController::class, 'placeorder']);
+
 
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
